@@ -37,23 +37,23 @@ public class Wheels {
 		rightMotor.stop();
 	}
 
-	public void turnLeft(int seconds) {
+	public static void turnLeft(int seconds) {
 		rightMotor.forward();
 		Delay.msDelay(seconds*1000);
 		rightMotor.stop();
 	}
 	
-	public void turnRight(int seconds) {
+	public static void turnRight(int seconds) {
 		leftMotor.forward();
 		Delay.msDelay(seconds*1000);
 		leftMotor.stop();
 	}
 	
-	public void moveLeft(int seconds) {
+	public static void moveLeft(int seconds) {
 
 	}
 
-	public void moveRight(int seconds) {
+	public static void moveRight(int seconds) {
 
 	}
 }
