@@ -37,6 +37,18 @@ public class Wheels {
 		rightMotor.stop();
 	}
 
+	public void turnLeft(int seconds) {
+		rightMotor.forward();
+		Delay.msDelay(seconds*1000);
+		rightMotor.stop();
+	}
+	
+	public void turnRight(int seconds) {
+		leftMotor.forward();
+		Delay.msDelay(seconds*1000);
+		leftMotor.stop();
+	}
+	
 	public void moveLeft(int seconds) {
 
 	}
