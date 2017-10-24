@@ -24,7 +24,7 @@ public class Wheels {
 	public static void moveForward(int seconds) {
 		leftMotor.forward();
 		rightMotor.forward();
-		Delay.msDelay(seconds);
+		Delay.msDelay(seconds*1000);
 		leftMotor.stop();
 		rightMotor.stop();
 	}
@@ -32,7 +32,7 @@ public class Wheels {
 	public static void moveBackward(int seconds) {
 		leftMotor.backward();
 		rightMotor.backward();
-		Delay.msDelay(seconds);
+		Delay.msDelay(seconds*1000);
 		leftMotor.stop();
 		rightMotor.stop();
 	}
