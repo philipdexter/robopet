@@ -1,5 +1,10 @@
 package dek;
 
 public interface State {
-	public void run(Runner runner);
+	/**
+	 * Run one 'step' of the state
+	 * @param runner The state runner
+	 * @return false if you want to exit
+	 */
+	public boolean run(Runner runner);
 }

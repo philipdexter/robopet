@@ -1,23 +1,18 @@
 package dek;
 
-import lejos.hardware.BrickFinder;
-import lejos.hardware.Button;
-import lejos.hardware.lcd.GraphicsLCD;
+import dek.api.Screen;
 
 public class Runner {
-	
-	GraphicsLCD LCD = BrickFinder.getDefault().getGraphicsLCD();
 	
 	State currentState = new Idle();
 	
 	public void go() {
 		while(true) {
-			currentState.run(this);
-			if (0 != Button.waitForAnyPress(5000)) {
+			if (!currentState.run(this)) {
 				break;
 			}
 		}
-		LCD.drawString("bye", 100, 20, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
+		Screen.print_centered("bye", 100, 20);
 	}
 	
 	public void setState(State state) {
@@ -27,7 +22,6 @@ public class Runner {
 	public State getState() {
 		return this.currentState;
 	}
-	
 	
 	public static void main(String[] args) {
 		Runner runner = new Runner();

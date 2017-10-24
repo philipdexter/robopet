@@ -12,110 +12,83 @@ public class HelloWorld
 {
 	GraphicsLCD LCD = BrickFinder.getDefault().getGraphicsLCD();
 
-    static RegulatedMotor leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+	static RegulatedMotor leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
 
-static RegulatedMotor rightMotor = new EV3LargeRegulatedMotor(MotorPort.C);
-
-
-
-void moverobotfwd(){
-
-   
-
-    LCD.clear();
-
-    // Display on robot screen
-
-    LCD.drawString("Moving Forward", 100, 20, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
-
-    // This code will set the speed and move the robot forward for 5 seconds
-
-    leftMotor.setSpeed(400);
-
-    rightMotor.setSpeed(400);
-
-    leftMotor.forward();
-
-    rightMotor.forward();
-
-    Delay.msDelay(5000);
-
-    // This code will stop the motors after 5 seconds
-
-    leftMotor.stop();
-
-    rightMotor.stop();
+	static RegulatedMotor rightMotor = new EV3LargeRegulatedMotor(MotorPort.C);
 
 
 
-    /*while (true) {
-
-                             leftMotor.setSpeed(400);
-
-                             rightMotor.setSpeed(400);
-
-             leftMotor.forward();
-
-             rightMotor.forward();
-
-             if (Button.readButtons() != 0) {
-
-                 leftMotor.stop();
-
-                 rightMotor.stop();
-
-                 System.exit(1);
-
-             }
-
-                 }*/
+	void moverobotfwd(){
 
 
 
-    }
+		LCD.clear();
 
-    void moverobotbkw() {             
+		// Display on robot screen
 
-                LCD.clear();
+		LCD.drawString("Moving Forward", 100, 20, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
 
-                // Display on robot screen
+		// This code will set the speed and move the robot forward for 5 seconds
 
-                LCD.drawString("Moving Backward", 100, 20, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
+		leftMotor.setSpeed(400);
 
-                // This code will set the speed and move the robot backward for 5 seconds        
+		rightMotor.setSpeed(400);
 
-                leftMotor.setSpeed(400);
+		leftMotor.forward();
 
-                rightMotor.setSpeed(400);
+		rightMotor.forward();
 
-        leftMotor.backward();
+		Delay.msDelay(5000);
 
-        rightMotor.backward();
+		// This code will stop the motors after 5 seconds
 
-        Delay.msDelay(5000);
+		leftMotor.stop();
 
-        // This code will stop the motors after 5 seconds
+		rightMotor.stop();
+	}
 
-        leftMotor.stop();
+	void moverobotbkw() {             
 
-        rightMotor.stop();
+		LCD.clear();
 
-                           
+		// Display on robot screen
 
-    }
+		LCD.drawString("Moving Backward", 100, 20, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
 
-    public static void main(String[] args) {
+		// This code will set the speed and move the robot backward for 5 seconds        
 
-                HelloWorld sample = new HelloWorld();
+		leftMotor.setSpeed(400);
 
-                //Robot will start when you press a button
+		rightMotor.setSpeed(400);
 
-                Button.waitForAnyPress();
+		leftMotor.backward();
 
-                sample.moverobotfwd();
+		rightMotor.backward();
 
-                sample.moverobotbkw();
+		Delay.msDelay(5000);
 
-    }
+		// This code will stop the motors after 5 seconds
+
+		leftMotor.stop();
+
+		rightMotor.stop();
+
+
+
+	}
+
+	public static void main(String[] args) {
+
+		HelloWorld sample = new HelloWorld();
+
+		//Robot will start when you press a button
+
+		Button.waitForAnyPress();
+
+		sample.moverobotfwd();
+
+		sample.moverobotbkw();
+
+	}
 }
 

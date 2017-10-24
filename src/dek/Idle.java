@@ -1,12 +1,11 @@
 package dek;
 
-import lejos.hardware.BrickFinder;
-import lejos.hardware.lcd.GraphicsLCD;
+import dek.api.Screen;
 
 public class Idle implements State {
-	GraphicsLCD LCD = BrickFinder.getDefault().getGraphicsLCD();
-	
-	public void run(Runner runner) {
-		LCD.drawString("Current state is Idle", 100, 20, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
+	public boolean run(Runner runner) {
+		Screen.print_centered("Current state is Idle", 100, 20);
+		
+		return true;
 	}
 }
