@@ -21,6 +21,24 @@ public class Wheels {
 		rightMotor.setSpeed(speed);
 	}
 	
+	public static void go() {
+		leftMotor.forward();
+		rightMotor.forward();
+	}
+	
+	public static void stop() {
+		leftMotor.stop();
+		rightMotor.stop();
+	}
+	
+	public static void moveForwardms(int ms) {
+		leftMotor.forward();
+		rightMotor.forward();
+		Delay.msDelay(ms);
+		leftMotor.stop();
+		rightMotor.stop();
+	}
+	
 	public static void moveForward(int seconds) {
 		leftMotor.forward();
 		rightMotor.forward();

@@ -1,28 +1,33 @@
 package dek;
 
 import dek.api.Screen;
-import lejos.hardware.Button;
+import dek.api.Wheels;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3ColorSensor;
 
 public class Philip implements State {
 	
 	/*
-	 * this program detects a color and
-	 * then waits for a button to be pressed
+	 * go forward until we find yellow
 	 * 
-	 * the color values are here:
+	 * the color ids are here:
 	 * http://www.lejos.org/ev3/docs/constant-values.html#lejos.robotics.Color.BLACK
 	 */
 
 	@Override
 	public boolean run(Runner runner) {
 		EV3ColorSensor sensor = new EV3ColorSensor(SensorPort.S4);
-		int id = sensor.getColorID();
-		Screen.print_centered("Color " + id, 100, 20);
-		sensor.close();
+		Wheels.setSpeed(100);
+		Wheels.go();
+		while (true) {
+			int id = sensor.getColorID();
+			Screen.print_centered("Color " + id, 100, 20);
+			
+			if (id == 3) break;
+		}
+		Wheels.stop();
 		
-		Button.waitForAnyPress();
+		sensor.close();
 		
 		return false;
 	}
