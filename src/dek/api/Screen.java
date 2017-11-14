@@ -9,4 +9,8 @@ public class Screen {
 	public static void print_centered(String message, int x, int y) {
 		LCD.drawString(message, x, y, GraphicsLCD.BASELINE|GraphicsLCD.HCENTER);
 	}
+	
+	public static void clear() {
+		LCD.clear();
+	}
 }
