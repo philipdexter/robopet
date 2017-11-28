@@ -11,7 +11,7 @@ public class BeeperBooper implements State {
 	public boolean run(Runner runner) {
 		EV3TouchSensor sensor = new EV3TouchSensor(SensorPort.S2);
 		
-		Wheels.setSpeed(100);
+		Wheels.setSpeed(250);
 		Wheels.go();
 		
 		sensor.getTouchMode();
@@ -23,8 +23,13 @@ public class BeeperBooper implements State {
 		}
 		
 		Sound.beepSequenceUp();
-		Wheels.setSpeed(300);
-		Wheels.moveBackward(2);
+		Wheels.setSpeed(200);
+		Wheels.moveBackward(2.0);
+		Wheels.moveBackLeft(2.0);
+		Wheels.moveForward(2.0);
+		Wheels.turnLeft(2.0);
+		Wheels.moveForward(2.0);
+		Wheels.stop();
 		
 		sensor.close();
 		
