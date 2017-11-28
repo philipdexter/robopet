@@ -34,36 +34,36 @@ public class Wheels {
 	public static void moveForwardms(int ms) {
 		leftMotor.forward();
 		rightMotor.forward();
-		Delay.msDelay(ms);
+		Delay.msDelay((long)ms);
 		leftMotor.stop();
 		rightMotor.stop();
 	}
 	
-	public static void moveForward(int seconds) {
+	public static void moveForward(double seconds) {
 		leftMotor.forward();
 		rightMotor.forward();
-		Delay.msDelay(seconds*1000);
+		Delay.msDelay((long)seconds*1000);
 		leftMotor.stop();
 		rightMotor.stop();
 	}
 
-	public static void moveBackward(int seconds) {
+	public static void moveBackward(double seconds) {
 		leftMotor.backward();
 		rightMotor.backward();
-		Delay.msDelay(seconds*1000);
+		Delay.msDelay((long)seconds*1000);
 		leftMotor.stop();
 		rightMotor.stop();
 	}
 
-	public static void turnLeft(int seconds) {
+	public static void turnLeft(double seconds) {
 		rightMotor.forward();
-		Delay.msDelay(seconds*1000);
+		Delay.msDelay((long)seconds*1000);
 		rightMotor.stop();
 	}
 	
-	public static void turnRight(int seconds) {
+	public static void turnRight(double seconds) {
 		leftMotor.forward();
-		Delay.msDelay(seconds*1000);
+		Delay.msDelay((long)seconds*1000);
 		leftMotor.stop();
 	}
 	
@@ -73,5 +73,17 @@ public class Wheels {
 
 	public static void moveRight(int seconds) {
 
+	}
+	
+	public static void moveBackLeft(double seconds) {
+		rightMotor.backward();
+		Delay.msDelay((long)seconds*1000);
+		leftMotor.stop();
+	}
+	
+	public static void moveBackRight(double seconds) {
+		leftMotor.backward();
+		Delay.msDelay((long)seconds*1000);
+		rightMotor.stop();
 	}
 }
