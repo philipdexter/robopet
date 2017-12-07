@@ -1,9 +1,12 @@
 package dek;
 import dek.api.Screen;
 import lejos.hardware.Button;
+import lejos.hardware.motor.EV3LargeRegulatedMotor;
+import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.hardware.sensor.EV3IRSensor;
 import lejos.hardware.sensor.SensorMode;
+import lejos.robotics.RegulatedMotor;
 
 
 
@@ -11,60 +14,70 @@ public class BeamFinder {
 	
 	SensorMode retValueIR;
 	int sampleSize;
+	RegulatedMotor leftMotor = new EV3LargeRegulatedMotor(MotorPort.B);
+	RegulatedMotor rightMotor = new EV3LargeRegulatedMotor(MotorPort.C);
 	
 	public void finder() {
-		
-		while(true) {
 		EV3IRSensor sensor = new EV3IRSensor(SensorPort.S3);
 		sensor.setCurrentMode(1);
+		
+		leftMotor.setSpeed(200);
+		rightMotor.setSpeed(200);
 		
 		int mode = sensor.getCurrentMode();
 		SensorMode sensorMode = sensor.getMode(mode);
 		
 		Screen.print_centered("Current mode " + sensorMode.getName() , 90, 20);
 		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		while(true) {
 		retValueIR=sensor.getSeekMode();
 		
 		sampleSize= retValueIR.sampleSize();
 		float[] sample= new float[sampleSize];
 		
-		
-		
 		followTheBeacon(sample);
 		
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (0 != Button.getButtons()) {
+			leftMotor.stop();
+			rightMotor.stop();
+			break;
 		}
-		
 		}
 	}
 	
 	
 	void followTheBeacon(float[] sample) {
 		
-		
 		retValueIR.fetchSample(sample, 0);
-				
-		Screen.print_centered("1st " + (int)sample[0]*100 + 
-				" 2nd " + (int)sample[1] *100, 100, 50);
-		Screen.print_centered("3rd " + (int)sample[2]*100 + 
-				" 4th " + (int)sample[3] *100, 100, 70);
-		Screen.print_centered("5th " + (int)sample[4]*100 + 
-				" 6th " + (int)sample[5] *100, 100, 90);
-		Screen.print_centered("7th " + (int)sample[6]*100 + 
-				" 8th " + (int)sample[7] *100, 100, 110);
 		
-		Button.waitForAnyPress();
+		float angle = sample[0];
+		float dist = sample[1];
+				
+		Screen.print_centered("Angle " + angle, 100, 50);
+		Screen.print_centered("Distance " + dist, 100, 70);
+		
+		if (dist > 100 || dist < 1) {
+			leftMotor.stop();
+			rightMotor.stop();
+		} else if (angle > 2) {
+			leftMotor.forward();
+			rightMotor.stop();
+		} else if (angle < -2) {
+			leftMotor.stop();
+			rightMotor.forward();
+		} else {
+			leftMotor.forward();
+			rightMotor.forward();
+		}
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Screen.clear();
 		
 	}
 	
