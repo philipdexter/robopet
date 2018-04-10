@@ -21,9 +21,6 @@ public class BeamFinder {
 		EV3IRSensor sensor = new EV3IRSensor(SensorPort.S3);
 		sensor.setCurrentMode(1);
 		
-		leftMotor.setSpeed(200);
-		rightMotor.setSpeed(200);
-		
 		int mode = sensor.getCurrentMode();
 		SensorMode sensorMode = sensor.getMode(mode);
 		
@@ -56,22 +53,52 @@ public class BeamFinder {
 		Screen.print_centered("Angle " + angle, 100, 50);
 		Screen.print_centered("Distance " + dist, 100, 70);
 		
-		if (dist > 100 || dist < 1) {
+		if (dist > 70) {
 			leftMotor.stop();
 			rightMotor.stop();
-		} else if (angle > 2) {
+		} else if (dist >= 5) {	
+			
+			int speed = setSpeed(dist);
+			
+			if (angle > 2) {
+				leftMotor.setSpeed(speed);
+				rightMotor.setSpeed(speed/2);
+			} else if (angle < -2) {
+				leftMotor.setSpeed(speed/2);
+				rightMotor.setSpeed(speed);
+			} else {
+				leftMotor.setSpeed(speed);
+				rightMotor.setSpeed(speed);
+			}
 			leftMotor.forward();
-			rightMotor.stop();
-		} else if (angle < -2) {
-			leftMotor.stop();
 			rightMotor.forward();
+			
+		} else if (dist >= 3) {
+			leftMotor.stop();
+			rightMotor.stop();
+		}
+		else if (dist >= 1){
+			
+			leftMotor.setSpeed(200);
+			rightMotor.setSpeed(200);
+			
+			if (angle > 2) {
+				leftMotor.stop();
+				rightMotor.backward();
+			} else if (angle < -2) {
+				leftMotor.backward();
+				rightMotor.stop();
+			} else {
+				leftMotor.backward();
+				rightMotor.backward();
+				}
 		} else {
-			leftMotor.forward();
-			rightMotor.forward();
+			leftMotor.stop();
+			rightMotor.stop();
 		}
 		
 		try {
-			Thread.sleep(100);
+			Thread.sleep(50);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,6 +106,10 @@ public class BeamFinder {
 		
 		Screen.clear();
 		
+	}
+	
+	int setSpeed(float dist) {
+		return (int) ((dist - 5)* 540/ 65 + 200);
 	}
 	
 	
